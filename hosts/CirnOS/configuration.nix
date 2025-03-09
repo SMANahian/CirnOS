@@ -111,9 +111,11 @@
       git
       gh
       # home-manager
+      vscode
       wget
       nixpkgs-fmt
       nixfmt
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     ];
   };
 
@@ -130,8 +132,9 @@
   # user
   users = {
     defaultUserShell = pkgs.zsh;
-    users.${username} = {
+    users.smanahian = {
       isNormalUser = true;
+      description = "S M A Nahian";
       shell = pkgs.zsh;
       extraGroups = [ "networkmanager" "wheel" "video" "input" "uinput" "libvirtd" ];
     };
@@ -139,7 +142,7 @@
 
   # network
   networking = {
-    hostName = "CirnOS";
+    hostName = "Lappy";
     networkmanager.enable = true;
   };
 
@@ -150,6 +153,19 @@
   };
 
   # Boot
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader = {
+  #   efi = {
+  #     canTouchEfiVariables = true;
+  #   };
+  #   # grub = {
+  #   #    enable = true;
+  #   #    efiSupport = true;
+  #   #    device = "/dev/vda";
+  #   # };
+  # };
+
+
   boot = {
     tmp.cleanOnBoot = true;
     supportedFilesystems = [ "btrfs" "ext4" "fat32" "ntfs" ];
@@ -182,6 +198,36 @@
     #   options snd_hda_intel model=headset-mode
     # '';
   };
+
+
+  # Enable the KDE Plasma Desktop Environment.
+  # services.displayManager.sddm.enable = true;
+  # services.desktopManager.plasma6.enable = true;
+
+  # Configure keymap in X11
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+
+  # Enable touchpad support (enabled default in most desktopManager).
+  # services.xserver.libinput.enable = true;
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # users.users.smanahian = {
+  #   isNormalUser = true;
+  #   description = "S M A Nahian";
+  #   extraGroups = [ "networkmanager" "wheel" ];
+  #   packages = with pkgs; [
+  #     # kdePackages.kate
+  #   #  thunderbird
+  #   ];
+  # };
+
 
   system.stateVersion = "23.11";
 }
